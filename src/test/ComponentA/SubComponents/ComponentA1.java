@@ -23,33 +23,4 @@ public class ComponentA1 extends CC2Component {
         this.getInfoMgn().writeNameSpace(new KeyName(5,"判断数据A1"));
         this.getInfoMgn().writeNameSpace(new KeyName(8,"决策数据A1"));
     }
-
-//    重写的处理command的方法，逻辑同给出的文档
-    @Override
-    public KeyValue command(KeyValue cmd) {
-        int resNum = this.getCmdRouter().router(cmd);
-        System.out.printf("0x%x%n", cmd.key);
-        KeyValue returndata = new KeyValue();
-        int action = (int)(cmd.key & 0xFF);
-        if(resNum == 0){
-            for (int i = 0; i < this.getOriModelMgn().getModelCount(); i++) {
-                CBizCompBase comp = this.getOriModelMgn().getBizComp(i);
-                if (comp.getBizInfo().getId() == action) {
-                    returndata = comp.command(cmd);
-                }
-            }
-            for (int i = 0; i < this.getDecModelMgn().getModelCount(); i++) {
-                CBizCompBase comp = this.getDecModelMgn().getBizComp(i);
-                if (comp.getBizInfo().getId() == action) {
-                    returndata = comp.command(cmd);
-                }
-            }
-            return returndata;
-        }else if (resNum == -1){
-            return null;
-        }else {
-            returndata = this.getStructureMgn().getSubComp(resNum-1).command(cmd);//resnum=0表示本身，所以在返回时只能加1表示是序号是0的子组件，实际调用的时候需要减去1
-            return returndata;
-        }
-    }
 }

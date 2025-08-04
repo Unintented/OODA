@@ -29,6 +29,8 @@ public class ProcA extends CBizProcMgn {
     public Result step(long dt) {
         this.count++;
         if (this.count == 10) {
+//          level 3 测试
+            KeyValue data0 = this.getselfComponent().command(new KeyValue(0x3111550A,100));
             System.out.println("Hello A");
             this.time++;
             ObsAX tempdata = new ObsAX();

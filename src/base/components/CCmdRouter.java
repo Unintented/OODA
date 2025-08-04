@@ -30,6 +30,8 @@ public class CCmdRouter {
 
     //    路由表
     public int router(KeyValue cmd) {
+        System.out.printf(this.getselfComponent().getComponentInfo().getSelfName()+" get command 0x%x%n", cmd.key);
+
         long key = cmd.key;
         long level = (key >>> 28) & 0xFL;         // 31~28 位：4 位
         long location = (key >>> 24) & 0xFL;         // 31~28 位：4 位
@@ -39,35 +41,28 @@ public class CCmdRouter {
         long opps = (key >>> 8) & 0xFL;           // 11~8 位：4 位
         if (level == this.selfComponent.getComponentInfo().getLevel().getValue()) {
             return 0;
-        } else if (level == 1) {
-            for (int i = 0; i < subC2Info.size(); i++) {
-                C2Info info = subC2Info.get(i);
-                if (location == info.getLocation().getValue()) {
-                    return i + 1;//0表示本身，所以在返回时只能加1表示是序号是0的子组件，实际调用的时候需要减去1
-                }
-            }
-        } else if (level == 2) {
+        } else if (this.getselfComponent().getComponentInfo().getLevel().getValue() == 1) {
             for (int i = 0; i < subC2Info.size(); i++) {
                 C2Info info = subC2Info.get(i);
                 if (cabin == info.getCabin().getValue()) {
                     return i + 1;//0表示本身，所以在返回时只能加1表示是序号是0的子组件，实际调用的时候需要减去1
                 }
             }
-        } else if (level == 3) {
+        } else if (this.getselfComponent().getComponentInfo().getLevel().getValue() == 2) {
             for (int i = 0; i < subC2Info.size(); i++) {
                 C2Info info = subC2Info.get(i);
                 if (subject == info.getSubject().getValue()) {
                     return i + 1;//0表示本身，所以在返回时只能加1表示是序号是0的子组件，实际调用的时候需要减去1
                 }
             }
-        } else if (level == 4) {
+        } else if (this.getselfComponent().getComponentInfo().getLevel().getValue() == 3) {
             for (int i = 0; i < subC2Info.size(); i++) {
                 C2Info info = subC2Info.get(i);
                 if (group == info.getGroup().getValue()) {
                     return i + 1;//0表示本身，所以在返回时只能加1表示是序号是0的子组件，实际调用的时候需要减去1
                 }
             }
-        } else if (level == 5) {
+        } else if (this.getselfComponent().getComponentInfo().getLevel().getValue() == 4) {
             for (int i = 0; i < subC2Info.size(); i++) {
                 C2Info info = subC2Info.get(i);
                 if (opps == info.getOpps().getValue()) {
