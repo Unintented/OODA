@@ -15,16 +15,13 @@ public class BizA1O1 extends CBizCompBase {
     @Override
     public KeyValue command(KeyValue cmd) {
         KeyValue key = new KeyValue();
-
-        if (cmd.key == 100 || cmd.value.equals(100) ) {
-            COriModelMgn parent = (COriModelMgn)this.getParent();
+         COriModelMgn parent = (COriModelMgn)this.getParent();
             key.key = 1;
             Result res = parent.getselfComponent().getInfoMgn().readKeyValue(key);
             if (res == Result.SUCCESS) {
                 System.out.println("m:"+((ObsAX)key.value).m);
                 System.out.println("n:"+((ObsAX)key.value).n);
             }
-        }
         return key;
     }
 }

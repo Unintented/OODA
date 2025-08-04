@@ -19,6 +19,8 @@ public class ProcA1 extends CBizProcMgn {
         if (this.count == 20) {
             time++;
             System.out.println("Hello A1");
+            KeyValue data0 = this.getselfComponent().command(new KeyValue(0x3111550A,100));
+
 //           原文档中命令100|100
             KeyValue data = this.getselfComponent().command(new KeyValue(0x21122208,100));
             ObsAX dataObsAX = (ObsAX)(data.value);

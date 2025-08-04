@@ -1,9 +1,6 @@
 package test.ComponentA.SubComponents.SubComponents;
 
-import base.components.CC2Component;
-import base.components.CCmdRouter;
-import base.components.CDecModelMgn;
-import base.components.CStructureMgn;
+import base.components.*;
 import base.enums.*;
 import base.model.C2Info;
 import base.model.KeyValue;
@@ -23,10 +20,11 @@ public class ComponentA11 extends CC2Component {
         KeyValue returndata = new KeyValue();
         int action = (int)(cmd.key & 0xFF);
         if(resNum == 0){
-            if (action == 0) {
-                returndata = this.getOriModelMgn().getBizComp(0).command(cmd);
-            }else if (action == 1) {
-                returndata = this.getDecModelMgn().getBizComp(0).command(cmd);
+            for (int i = 0; i < this.getDecModelMgn().getModelCount(); i++) {
+                CBizCompBase comp = this.getDecModelMgn().getBizComp(i);
+                if (comp.getBizInfo().getId() == action) {
+                    returndata = comp.command(cmd);
+                }
             }
             return returndata;
         }else if (resNum == -1){

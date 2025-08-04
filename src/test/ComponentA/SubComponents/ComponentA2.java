@@ -28,11 +28,21 @@ public class ComponentA2 extends CC2Component {
     @Override
     public KeyValue command(KeyValue cmd) {
         int resNum = this.getCmdRouter().router(cmd);
+        System.out.printf("0x%x%n", cmd.key);
         KeyValue returndata = new KeyValue();
         int action = (int)(cmd.key & 0xFF);
         if(resNum == 0){
-            if (action == 0) {
-                returndata = this.getDecModelMgn().getBizComp(0).command(cmd);
+            for (int i = 0; i < this.getOriModelMgn().getModelCount(); i++) {
+                CBizCompBase comp = this.getOriModelMgn().getBizComp(i);
+                if (comp.getBizInfo().getId() == action) {
+                    returndata = comp.command(cmd);
+                }
+            }
+            for (int i = 0; i < this.getDecModelMgn().getModelCount(); i++) {
+                CBizCompBase comp = this.getDecModelMgn().getBizComp(i);
+                if (comp.getBizInfo().getId() == action) {
+                    returndata = comp.command(cmd);
+                }
             }
             return returndata;
         }else if (resNum == -1){
