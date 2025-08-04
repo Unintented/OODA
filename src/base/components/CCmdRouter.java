@@ -3,7 +3,6 @@ package base.components;
 import base.enums.Result;
 import base.model.C2Info;
 import base.model.KeyValue;
-
 import java.util.ArrayList;
 import java.util.List;
 

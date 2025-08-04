@@ -136,10 +136,8 @@ public class CDecModelMgn {
      */
     private static void findJavaFiles(File dir, List<File> list) {
         for (File f : Objects.requireNonNull(dir.listFiles())) {
-            if (f.isDirectory()) {
-                findJavaFiles(f, list);
-            } else if (f.getName().endsWith(".java")) {
-                list.add(f);
+            if (f.isFile() && f.getName().endsWith(".java")) {
+                list.add(f); // 只添加当前目录下的 .java 文件
             }
         }
     }

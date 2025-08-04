@@ -41,7 +41,6 @@ public class CC2Component {
     //    处理命令的方法
     public KeyValue command(KeyValue cmd) {
         int resNum = this.getCmdRouter().router(cmd);
-        System.out.println(resNum);
         KeyValue returndata = new KeyValue();
         int action = (int) (cmd.key & 0xFF);
         if (resNum == 0) {
