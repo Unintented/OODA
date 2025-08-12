@@ -42,7 +42,7 @@ public class CC2Component {
     public KeyValue command(KeyValue cmd) {
         int resNum = this.getCmdRouter().router(cmd);
         KeyValue returndata = new KeyValue();
-        int action = (int) (cmd.key & 0xFF);
+        int action = (int) ((cmd.key >>> 8) & 0xFF);
         if (resNum == 0) {
             for (int i = 0; i < this.getOriModelMgn().getModelCount(); i++) {
                 CBizCompBase comp = this.getOriModelMgn().getBizComp(i);
